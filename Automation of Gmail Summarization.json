@@ -1,0 +1,174 @@
+{
+  "name": "Automation of Gmail Summarization",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -592,
+        0
+      ],
+      "id": "57371aa4-2fb9-4fc9-962f-0d4559748a5d",
+      "name": "Telegram Trigger",
+      "webhookId": "0c3ccfeb-7a0f-4b8e-a7d6-2122cba3f27d",
+      "credentials": {
+        "telegramApi": {
+          "id": "rreXId1aFFDCWTvm",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "You are an email assistant.\nBased on the user’s request, you will either:\n\nSummarize an email\n\nSend an email\n\nSummarize an email and send the summary\n\nAfter completing the task, return only an execution report describing what was done.\n\nOutput format (mandatory):\n\nTask Performed:\n\nEmail Summary / Email Sent / Email Summary & Sent\n\nDetails:\n\nIf summarized: briefly state that the email was summarized\n\nIf sent: state the recipient email address\n\nIf both: state that the email was summarized and sent\n\nStatus:\n\nSuccess\n\nRules:\n\nDo not include the email content unless explicitly requested\n\nDo not explain reasoning\n\nKeep the report short and factual\n\nNo greetings or extra text"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -112,
+        0
+      ],
+      "id": "42fb403b-25c9-455c-a755-6c4c53078689",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -144,
+        240
+      ],
+      "id": "a5f38f0d-cc88-48bb-b270-c531ebfec904",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "aoOX7ptP2NsxXDnE",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "limit": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Limit', ``, 'number') }}",
+        "filters": {}
+      },
+      "type": "n8n-nodes-base.gmailTool",
+      "typeVersion": 2.2,
+      "position": [
+        16,
+        272
+      ],
+      "id": "9600e04e-9bdd-42ed-8679-980fe8a2b6d4",
+      "name": "Get many messages in Gmail",
+      "webhookId": "e77d7aea-37a7-4383-b0f4-421e12572176",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "3mF28Q6nGtTFKuzH",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "75854f64-4a65-4cc1-a9cf-b1fd406c2ad4",
+      "name": "Send a text message",
+      "webhookId": "f7de9037-cd9a-4bc0-9587-41d8d6d6d937",
+      "credentials": {
+        "telegramApi": {
+          "id": "rreXId1aFFDCWTvm",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many messages in Gmail": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "8a0fd229-d37e-407e-81a9-f384773ba4ba",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "abd80857954d968c74c4585e0d1d40d0f542804a8edae07afbe3f56edfa5c857"
+  },
+  "id": "wnj5eH0eUY01hD2X",
+  "tags": []
+}
