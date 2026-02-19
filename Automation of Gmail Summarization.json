@@ -16,10 +16,10 @@
       ],
       "id": "57371aa4-2fb9-4fc9-962f-0d4559748a5d",
       "name": "Telegram Trigger",
-      "webhookId": "0c3ccfeb-7a0f-4b8e-a7d6-2122cba3f27d",
+      "webhookId": "REMOVED_WEBHOOK_ID",
       "credentials": {
         "telegramApi": {
-          "id": "rreXId1aFFDCWTvm",
+          "id": "REMOVED_CREDENTIAL_ID",
           "name": "Telegram account"
         }
       }
@@ -61,8 +61,8 @@
       "name": "OpenAI Chat Model",
       "credentials": {
         "openAiApi": {
-          "id": "aoOX7ptP2NsxXDnE",
-          "name": "n8n free OpenAI API credits"
+          "id": "REMOVED_CREDENTIAL_ID",
+          "name": "OpenAI account"
         }
       }
     },
@@ -80,10 +80,10 @@
       ],
       "id": "9600e04e-9bdd-42ed-8679-980fe8a2b6d4",
       "name": "Get many messages in Gmail",
-      "webhookId": "e77d7aea-37a7-4383-b0f4-421e12572176",
+      "webhookId": "REMOVED_WEBHOOK_ID",
       "credentials": {
         "gmailOAuth2": {
-          "id": "3mF28Q6nGtTFKuzH",
+          "id": "REMOVED_CREDENTIAL_ID",
           "name": "Gmail account"
         }
       }
@@ -102,10 +102,10 @@
       ],
       "id": "75854f64-4a65-4cc1-a9cf-b1fd406c2ad4",
       "name": "Send a text message",
-      "webhookId": "f7de9037-cd9a-4bc0-9587-41d8d6d6d937",
+      "webhookId": "REMOVED_WEBHOOK_ID",
       "credentials": {
         "telegramApi": {
-          "id": "rreXId1aFFDCWTvm",
+          "id": "REMOVED_CREDENTIAL_ID",
           "name": "Telegram account"
         }
       }
@@ -157,17 +157,17 @@
         ]
       ]
     }
-  },
+  ],
   "active": false,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "8a0fd229-d37e-407e-81a9-f384773ba4ba",
+  "versionId": "REMOVED_VERSION_ID",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "abd80857954d968c74c4585e0d1d40d0f542804a8edae07afbe3f56edfa5c857"
+    "instanceId": "REMOVED_INSTANCE_ID"
   },
   "id": "wnj5eH0eUY01hD2X",
   "tags": []
